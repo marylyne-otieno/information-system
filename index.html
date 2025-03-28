@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>SCHOOL INFORMATION SYSTEM</title>
+</head>
+<body>
+  <header>
+    <div>SCHOOL INFORMATION SYSTEM</div>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#students">Students</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contacts">Contacts</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section id="home">
+<div id="home-content">
+  <h1>Welcome to Our School</h1>
+  <p>Your Gateway to Quality Education</p>
+  <a href="#About" class="btn">Learn More</a>
+</div>
+    </section>
+    <section id="students">
+      <h2>Student Management</h2>
+    </section>
+    <form>
+      <label for="search-input">Search students:</label>
+      <div style="display: flex; gap: 0.5rem;">
+      <input type="text" id="search-input" placeholder="Enter ID, name or email"/>
+      <button type="button" id="search-btn">Search</button>
+      <button type="button" id="reset-search-btn">Reset</button>
+      </div>
+    </form>
+    <div id="students-containerr">
+      <table id="studentsTable">
+        <thead>
+
+          <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Age</th>
+           <th>Gender</th>
+           <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="students-table-body">
+
+        </tbody>
+      </table>
+    </div>
+    <div id="container">
+      <form id="student-form">
+        <h3 id="form-title">Add New Student</h3>
+        <input type="hidden" id="student-id">
+
+        <label for="first-name">First Name:</label>
+        <input type="text" id="first-name" required>
+
+        <label for="last-name">Last Name:</label>
+        <input type="text" id="last-name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" min="10" max="99">
+
+        <label for="gender">Gender:</label>
+        <select id="gender">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+
+        <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+          <button type="button" id="save-btn">Save</button>
+          <button type="button" id="cancel-btn" style="background: #d9534f;">Cancel</button>
+        </div>
+      </form>
+
+      <div id="student-details">
+        <h3>Student Details</h3>
+        <div id="details-content">
+          <p>Select a student to view details</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <h1>About</h1>
+    <p>
+      The School Information System is a web-based platform that allows students
+      to easily access and manage their information. It provides a user-friendly
+      interface where students can: <br>✅ Fetch Data -  Search for and view their
+      personal details. <br>✅ Add New Users - Register new students into the
+      system.<br> ✅ Update Information - Modify and update their existing records.
+      The system is designed to enhance accessibility and efficiency in managing
+      student records by integrating an API for real-time data retrieval and
+      updates.
+    </p>
+  </section>
+  <div id="contacts">
+    <h1>Contacts</h1>
+    <p>📍 <strong>Address:</strong> 123 Learning Street, Nairobi, Kenya</p>
+    <p>📞 <strong>Phone:</strong> +254 712 345 678</p>
+    <p>📧 <strong>Email:</strong> <a href="mailto:info@schoolname.ac.ke">info@goodservant.ac.ke</a></p>
+    <p>⏰ <strong>Office Hours:</strong> Monday - Friday, 8:00 AM - 5:00 PM</p>
+    <div>
+      <a href="https://facebook.com/goodservant" target="_blank">Facebook</a>
+    <a href="https://twitter.com/goodservant" target="_blank">Twitter</a>
+    <a href="https://instagram.com/goodservant" target="_blank">Instagram</a>
+    <a href="https://linkedin.com/goodservant" target="_blank">LinkedIn</a>
+
+      </div>
+
+  </div>
+
+</main>
+
+<footer>
+
+  <p>&copy; 2023 School Information System. All rights reserved.</p>
+</footer>
+
+  </main>
+<script src="script.js"></script>
+</body>
+</html>

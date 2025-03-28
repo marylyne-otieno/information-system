@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
     await fetchStudents();
     setupEventListeners();
   }
+  //fetch all students
 
   async function fetchStudents() {
     try {
@@ -204,6 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
       detailsContent.innerHTML = student
         ? `<h4>${student.firstName} ${student.lastName}</h4>
            <p><strong>ID:</strong> ${student.id}</p>
+           <p>strong>Age:</strong> ${student.age}</p>
            <p><strong>Email:</strong> ${student.email}</p>`
         : '<p>Student not found</p>';
     } catch (error) {
@@ -213,7 +215,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function handleSearch() {
     const searchTerm = searchInput.value.toLowerCase();
-    renderStudentsTable(students.filter((student) => student.firstName.toLowerCase().includes(searchTerm)));
+    renderStudentsTable(students.filter((student) => student.firstName.toLowerCase().includes(searchTerm)||
+  student.lastName.toLowerCase().includes(searchTerm)||
+student.email.toLowerCase().includes(searchTerm)));
   }
 
   function resetSearch() {

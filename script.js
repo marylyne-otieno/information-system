@@ -7,15 +7,14 @@ document.addEventListener('DOMContentLoaded', function () {
   const cancelBtn = document.getElementById('cancel-btn');
   const searchInput = document.getElementById('search-input');
   const searchBtn = document.getElementById('search-btn');
-  const resetSearchBtn = document.getElementById('reset-search-btn');
   const detailsContent = document.getElementById('details-content');
-
+//apr
   const API_URL = 'https://dummyjson.com/users';
-
+//variable
   let students = [];
   let isEditing = false;
   let currentStudentId = null;
-
+//initialize
   init();
 
   async function init() {
@@ -29,12 +28,12 @@ document.addEventListener('DOMContentLoaded', function () {
       const response = await fetch(API_URL);
       const data = await response.json();
       students = data.users || [];
-      renderStudentsTable();
+      displayStudentsTable();
     } catch (error) {
       console.error('Error fetching students:', error);
       alert('Failed to load students. Using fallback data.');
       students = getFallbackData();
-      renderStudentsTable();
+      displayStudentsTable();
     }
   }
 
@@ -57,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
       const newStudent = await response.json();
       students.unshift(newStudent);
-      renderStudentsTable();
+      displayStudentsTable();
       return newStudent;
     } catch (error) {
       console.error('Error adding student:', error);
@@ -77,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const index = students.findIndex((s) => s.id === id);
       if (index !== -1) students[index] = updatedStudent;
 
-      renderStudentsTable();
+      displayStudentsTable();
       return updatedStudent;
     } catch (error) {
       console.error('Error updating student:', error);
@@ -85,13 +84,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  async function deleteStudentFromAPI(id) {
+  async function deleteStudent(id) {
     try {
-      const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: 'DELETE',
+      headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(id),
+  });
       const result = await response.json();
 
-      students = students.filter((s) => s.id !== id);
-      renderStudentsTable();
+      students = students.filter((student) => student.id !== id);
+      displayStudentsTable();
 
       return result;
     } catch (error) {
@@ -100,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 //display on the table
-  function renderStudentsTable(filteredStudents = null) {
+  function displayStudentsTable(filteredStudents = null) {
     const studentsToRender = filteredStudents || students;
     studentsTableBody.innerHTML = '';
 
@@ -129,13 +132,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 // my events
   function setupEventListeners() {
-    saveBtn.addEventListener('click', handleSaveStudent);
+  saveBtn.addEventListener('click', saveStudent);
     cancelBtn.addEventListener('click', resetForm);
     searchBtn.addEventListener('click', handleSearch);
-    resetSearchBtn.addEventListener('click', resetSearch);
-
-    searchInput.addEventListener('keyup', (e) => {
-      if (e.key === 'Enter') handleSearch();
+    searchInput.addEventListener('keyup', (events) => {
+      if (events.key === 'Enter') handleSearch();
     });
 
     studentsTableBody.addEventListener('click', (e) => {
@@ -146,8 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
   //handling form
-
-  async function handleSaveStudent() {
+  async function saveStudent() {
     const studentData = {
       firstName: document.getElementById('first-name').value,
       lastName: document.getElementById('last-name').value,
@@ -168,12 +168,11 @@ document.addEventListener('DOMContentLoaded', function () {
       alert('Operation failed. Please try again.');
     }
   }
-
   async function handleDeleteStudent(id) {
     if (!confirm('Are you sure you want to delete this student?')) return;
 
     try {
-      await deleteStudentFromAPI(id);
+      await deleteStudent(id);
       if (currentStudentId === id) resetForm();
       detailsContent.innerHTML = '<p>Select a student to view details</p>';
     } catch (error) {
@@ -182,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 //editing
   function editStudent(studentId) {
-    const student = students.find((s) => s.id === studentId);
+    const student = students.find((student) => student.id === studentId);
     if (!student) return;
 
     isEditing = true;
@@ -215,14 +214,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function handleSearch() {
     const searchTerm = searchInput.value.toLowerCase();
-    renderStudentsTable(students.filter((student) => student.firstName.toLowerCase().includes(searchTerm)||
+    displayStudentsTable(students.filter((student) =>
+
+  student.firstName.toLowerCase().includes(searchTerm)||
   student.lastName.toLowerCase().includes(searchTerm)||
 student.email.toLowerCase().includes(searchTerm)));
-  }
-
-  function resetSearch() {
-    searchInput.value = '';
-    renderStudentsTable();
   }
 
   function resetForm() {
@@ -230,5 +226,6 @@ student.email.toLowerCase().includes(searchTerm)));
     isEditing = false;
     formTitle.textContent = 'Add New Student';
   }
+
 });
 

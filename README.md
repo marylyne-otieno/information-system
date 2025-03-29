@@ -28,16 +28,7 @@ Tools: Visual Studio Code (VS Code), WSL
 
 
 
-Usage
-View the list of students and their details
 
-Search students using ID, teacher names, or course codes
-
-Add new students by filling out the form
-
-Edit student details as needed
-
-Delete students from the system
 
 API Endpoints Used
 GET /users => Fetch all students
@@ -81,7 +72,7 @@ If no results are found, it displays "No students found".
 
 Rendering/display/update
 
-The renderStudentsTable() function loops through the student list and generates HTML table rows dynamically.
+The displayStudentsTable() function loops through the student list and generates HTML table rows dynamically.
 
 When a student is deleted, the UI updates automatically.
 

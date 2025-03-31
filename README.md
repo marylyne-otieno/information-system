@@ -11,8 +11,8 @@ Overview
 The School Information System is a web application that allows users to manage student  efficiently. It fetches data from an API, enabling searching, viewing, adding, updating, and deleting records in a simple and user-friendly interface.
 
 Features
-✅ Fetch and display all students, teachers, and courses
-✅ Search functionality for students by ID, teacher names, and course codes
+✅ Fetch and display all students.
+✅ Search functionality for students by ID and name.
 ✅ View student details dynamically
 ✅ Add, update, and delete student records
 ✅ Responsive and user-friendly interface

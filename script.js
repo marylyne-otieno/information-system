@@ -11,9 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
 //apr
   const API_URL = 'https://dummyjson.com/users';
 //variable
-  let students = [];
-  let isEditing = false;
-  let currentStudentId = null;
+  let students = []; //Holds fetched student data
+  let isEditing = false; //editing
+  let currentStudentId = null; //Stores the ID of the student being edited
 //initialize
   init();
 
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
       displayStudentsTable();
     }
   }
-
+//fetching single student
   async function fetchStudent(id) {
     try {
       const response = await fetch(`${API_URL}/${id}`);
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return students.find((s) => s.id === id) || null;
     }
   }
-
+//adds a new student
   async function addStudent(studentData) {
     try {
       const response = await fetch(`${API_URL}/add`, {
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
       throw error;
     }
   }
-
+//delete
   async function deleteStudent(id) {
     try {
       const response = await fetch(`${API_URL}/${id}`, {
@@ -131,6 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 // my events
+//mouse click
   function setupEventListeners() {
   saveBtn.addEventListener('click', saveStudent);
     cancelBtn.addEventListener('click', resetForm);
@@ -139,11 +140,11 @@ document.addEventListener('DOMContentLoaded', function () {
       if (events.key === 'Enter') handleSearch();
     });
 
-    studentsTableBody.addEventListener('click', (e) => {
-      const studentId = parseInt(e.target.getAttribute('data-id'));
-      if (e.target.classList.contains('edit-btn')) editStudent(studentId);
-      else if (e.target.classList.contains('delete-btn')) handleDeleteStudent(studentId);
-      else if (e.target.classList.contains('view-btn')) viewStudentDetails(studentId);
+    studentsTableBody.addEventListener('click', (event) => {
+      const studentId = parseInt(event.target.getAttribute('data-id'));
+      if (event.target.classList.contains('edit-btn')) editStudent(studentId);
+      else if (event.target.classList.contains('delete-btn')) handleDeleteStudent(studentId);
+      else if (event.target.classList.contains('view-btn')) viewStudentDetails(studentId);
     });
   }
   //handling form
@@ -204,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
       detailsContent.innerHTML = student
         ? `<h4>${student.firstName} ${student.lastName}</h4>
            <p><strong>ID:</strong> ${student.id}</p>
-           <p>strong>Age:</strong> ${student.age}</p>
+           <p><strong>Age:</strong> ${student.age}</p>
            <p><strong>Email:</strong> ${student.email}</p>`
         : '<p>Student not found</p>';
     } catch (error) {
